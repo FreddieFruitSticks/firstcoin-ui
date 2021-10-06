@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import NoddyStateProvider from "../src/context/context-provider"
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <NoddyStateProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </NoddyStateProvider>
+,
   document.getElementById('root')
 );
 
