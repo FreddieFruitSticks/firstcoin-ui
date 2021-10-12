@@ -1,16 +1,18 @@
-import React, { useReducer } from 'react'
+import React, { ReactChild, useReducer } from 'react'
+import { IAction } from './actions'
 import reducer, { InitialState, initialState } from './reducer'
 
 export interface Context {
     state: InitialState,
-    dispatch?: React.Dispatch<any>
+    dispatch: React.Dispatch<IAction<any>>
 }
 
-export const GlobalStateContext = React.createContext<any>({
-    state: initialState
+export const GlobalStateContext = React.createContext<Context>({
+    state: initialState,
+    dispatch: (action: IAction<any>) => console.warn(`WARNING! Dispatch function not set. Attemting to dispatch ${action}`)
 })
 
-const NoddyStateProvider = ({children}:{children: any}) => {
+const FirstcoinStateProvider = ({children}:{children: ReactChild}) => {
     let localState = {}
     
     let [state, dispatch] = useReducer(reducer, {...initialState, ...localState})
@@ -24,4 +26,4 @@ const NoddyStateProvider = ({children}:{children: any}) => {
     )
 }
 
-export default NoddyStateProvider
+export default FirstcoinStateProvider

@@ -1,11 +1,14 @@
 import './App.css';
 import Header from './components/header'
 import { connect } from './context/connector';
+import { Context } from './context/context-provider';
+import Blockchain from './components/blockchain';
 
-function App(props: any) {
+function App({state, dispatch}: Context) {
   return (
-    <div className="App">
-      <Header/>
+    <div >
+      <Header {...{state, dispatch}}/>
+      <Blockchain {...{state, dispatch}}/>
     </div>
   );
 }

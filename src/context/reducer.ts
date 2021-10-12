@@ -1,12 +1,18 @@
 import React from 'react'
 import { ActionType, IAction } from './actions';
 
-export interface Block{
-    
+export interface IBlock{
+    index: number;
+    previousHash: string;
+    transactions: any[];
+    timestamp: number;
+    difficultyLevel: number;
+    nonce: number;
+    hash: string;
 }
 
 export interface Blockchain{
-    blocks: Block[]
+    blocks: IBlock[]
 }
 
 export interface InitialState {

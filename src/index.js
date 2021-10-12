@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import NoddyStateProvider from "../src/context/context-provider"
+import FirstcoinStateProvider from "../src/context/context-provider"
 
 ReactDOM.render(
-  <NoddyStateProvider>
+  <FirstcoinStateProvider>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </NoddyStateProvider>
+  </FirstcoinStateProvider>
 ,
   document.getElementById('root')
 );
