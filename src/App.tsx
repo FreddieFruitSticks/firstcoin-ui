@@ -8,7 +8,9 @@ function App({state, dispatch}: Context) {
   return (
     <div >
       <Header {...{state, dispatch}}/>
-      <Blockchain {...{state, dispatch}}/>
+      <div className="pa4">
+        <Blockchain {...{state, dispatch}}/>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react'
-import {blockchainAction} from '../context/actions'
 import {Context} from '../context/context-provider'
-import { fetchBlockchain } from '../services'
 
 const Header = ({state, dispatch}: Context) => {
 

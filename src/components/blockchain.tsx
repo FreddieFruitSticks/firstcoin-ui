@@ -1,7 +1,6 @@
 import 'animate.css'
 import './block.css'
 import Block from './block'
-import {IBlock} from '../context/reducer'
 import { useEffect } from 'react'
 import { fetchBlockchain } from '../services'
 import { Context } from '../context/context-provider'
@@ -13,29 +12,23 @@ interface IBlockchain extends Context{
 const Blockchain = ({state, dispatch}: IBlockchain) => {
     useEffect(() => {
         async function fetchbc(){
-            // const chain = await fetchBlockchain()
+            const chain = await fetchBlockchain()
 
-            dispatch(blockchainAction({
-                blocks:[{
-                    index:10,
-                    previousHash: "*Sasd8)(Sd8asd",
-                    transactions: [],
-                    timestamp: 12345,
-                    difficultyLevel: 5,
-                    nonce: 12345,
-                    hash: "asdjhfovJKDsd87"
-                }]
-            }))
+        dispatch(blockchainAction({
+            blocks: chain.blocks
+        }))
         }
+        
+
         fetchbc()
 
-    },[])
+    },[dispatch])
     
     return (
-        <div>
-            {state.blockchain.blocks.map(block => {
+        <div className="flex flex-wrap-reverse">
+            {state.blockchain.blocks.map((block, index) => {
                 return (
-                    <Block blockData={block}/>
+                    <Block key={index} blockData={block}/>
                 )
             })}
         </div>

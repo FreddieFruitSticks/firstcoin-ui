@@ -1,14 +1,36 @@
-import React from 'react'
 import { ActionType, IAction } from './actions';
 
 export interface IBlock{
     index: number;
     previousHash: string;
-    transactions: any[];
+    transactions: ITransaction[];
     timestamp: number;
     difficultyLevel: number;
     nonce: number;
     hash: string;
+}
+
+export interface ITxOutputs{
+    Address: string;
+    Amount: number;
+}
+
+export interface IUtxOID{
+    Address: string;
+    TxID: string;
+}
+
+export interface ITxInputs{
+    UTxOID: IUtxOID;
+    UTxOIndex: number;
+    Signature: string;
+}
+
+export interface ITransaction{
+    id: string;
+    transactionInputs: ITxInputs[];
+    transactionOutputs: ITxOutputs[];
+    timestamp: number;
 }
 
 export interface Blockchain{
