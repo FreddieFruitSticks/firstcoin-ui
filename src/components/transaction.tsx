@@ -5,7 +5,7 @@ import {ITransaction, ITxInputs, ITxOutputs, IUtxOID} from '../context/reducer'
 
 const Transaction = ({txData}: {txData: ITransaction}) => {
     return (
-        <div className="f7 pl2">
+        <div className="text-xs">
             <div>
                 id: {txData.id.substring(0,5)}...
             </div> 

@@ -4,12 +4,12 @@ import {IBlock} from '../context/reducer'
 import { useState } from 'react'
 import Transaction from './transaction'
 
-const Block = ({blockData}: {blockData: IBlock}) => {
+const Block = ({blockData, displayArrow}: {blockData: IBlock, displayArrow: boolean}) => {
    const [expand, setExpand] = useState(false)
    
     return (
-      <div onClick={() => setExpand(!expand)} className="grow h4 w4 pa2 pointer">
-        <div className={`Block ${!expand ? 'h4 w4 pa2' : 'h6 w5 pa2'} overflow-hidden animate__animated animate__rubberBand`}>
+      <div onClick={() => setExpand(!expand)} className="cursor-pointer	flex">
+        <div className={`tran block px-2 ${!expand ? 'w-44 h-36' : 'w-80 h-auto'} overflow-hidden animate__animated animate__rubberBand`}>
           <div>
             index: {blockData.index}
           </div>
@@ -31,6 +31,9 @@ const Block = ({blockData}: {blockData: IBlock}) => {
             })}
           </div>
         </div>
+        {displayArrow && <span className="arrow arrow-right"></span>}
+        {/* {!displayArrow && <img className="" src={'minecoin.gif'} alt="loading..." />} */}
+
       </div>
         
     )

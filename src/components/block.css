@@ -1,5 +1,9 @@
-.Block {
+.block {
     background-color: #f2a900;
     border-radius: 10px;
     color: #4d4d4e;
   }
+  
+.tran {
+    transition: width 0.5s;
+}

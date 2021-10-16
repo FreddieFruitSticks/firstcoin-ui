@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { fetchBlockchain } from '../services'
 import { Context } from '../context/context-provider'
 import { blockchainAction } from '../context/actions'
+import './style.css'
 
 interface IBlockchain extends Context{
 }
@@ -25,10 +26,12 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
     },[dispatch])
     
     return (
-        <div className="flex flex-wrap-reverse">
+        <div className="flex bg-black">
             {state.blockchain.blocks.map((block, index) => {
                 return (
-                    <Block key={index} blockData={block}/>
+                    <div className="flex">
+                        <Block displayArrow={index !== state.blockchain.blocks.length -1} key={index} blockData={block}/>
+                    </div>
                 )
             })}
         </div>
