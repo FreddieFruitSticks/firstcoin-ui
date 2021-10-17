@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import FirstcoinStateProvider from "../src/context/context-provider"
+import './styles/theme.css'
 
 ReactDOM.render(
   <FirstcoinStateProvider>

@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       transitionProperty: {
-        'height': 'height',
+        height: 'height',
        },
       colors: {
         orange: '#ff5614',
