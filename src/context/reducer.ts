@@ -67,7 +67,17 @@ const reducer : (a: InitialState, b: IAction<any>) => InitialState = (state, act
             return newState
         }
             
-        
+        case ActionType.BLOCK:{
+            const newState = {
+                ...state,
+                blockchain: {
+                    ...state.blockchain,
+                    ...action.payload
+                }
+            }
+            
+            return newState
+        }
         
       default:
         return state;

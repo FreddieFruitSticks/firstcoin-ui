@@ -1,4 +1,4 @@
-import {Blockchain} from '../context/reducer'
+import {Blockchain, IBlock} from '../context/reducer'
 
 export const fetchBlockchain : () => Promise<Blockchain> = async () => {
     const response = await fetch(`http://localhost:8080/block-chain`);
@@ -6,4 +6,15 @@ export const fetchBlockchain : () => Promise<Blockchain> = async () => {
       return response.json()
     }
     throw new Error("fetch blockchain returns "+response.status)
+}
+
+export const mineBlock : () => Promise<IBlock> = async () => {
+  const response = await fetch(`http://localhost:8080/create-block`,{
+    method: "POST",
+    body:JSON.stringify({a: 1, b: 'Textual content'})
+  });
+  if (response.ok){
+    return response.json()
+  }
+  throw new Error("fetch blockchain returns "+response.status)
 }

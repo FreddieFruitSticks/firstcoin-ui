@@ -13,25 +13,22 @@ export enum Direction {
 
 interface IBlockProps{
   blockData: IBlock; 
-  displayArrow: boolean;
+  last: boolean;
   direction: Direction;
 }
 
-const Block = ({blockData, displayArrow, direction}: IBlockProps) => {
+const Block = ({blockData, last, direction}: IBlockProps) => {
    const [expand, setExpand] = useState(false)
    
     return (
-      <div className="transform transition duration-500 hover:scale-105 ">
+      <div className="transform transition duration-500 hover:scale-105 flex flex-col items-center">
         <AnimateHeight
-        id='example-panel'
-        duration={ 500 }
-        height={ expand ? 'auto': 150}
-      >
-        <div onClick={() => setExpand(!expand)} className="cursor-pointer flex">
-          {direction == Direction.Backwards &&
-            displayArrow && <span className="arrow arrow-left"></span>
-          }
-            <div className={`tran block px-2 ${!expand ? 'w-44' : 'w-80'} overflow-hidden animate__animated animate__rubberBand`}>
+          duration={ 500 }
+          height={ expand ? 'auto': 150}
+          className="w-5/12 rounded"
+        >
+        <div onClick={() => setExpand(!expand)} className=" cursor-pointer">
+            <div className={`rounded-lg tran  block px-2 overflow-hidden animate__animated animate__rubberBand`}>
               <div>
                 index: {blockData.index}
               </div>
@@ -53,13 +50,14 @@ const Block = ({blockData, displayArrow, direction}: IBlockProps) => {
                 })}
               </div>
             </div>
-          {direction == Direction.Forwards &&
-            displayArrow && <span className="arrow arrow-right"></span>
-          }
+
           {/* {!displayArrow && <img className="" src={'minecoin.gif'} alt="loading..." />} */}
 
         </div>
         </AnimateHeight>
+        {direction == Direction.Forwards &&
+          !last && <span className="arrow arrow-down"></span>
+        }
       </div>
       
 

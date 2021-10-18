@@ -1,7 +1,8 @@
-import { Blockchain } from "./reducer"
+import { Blockchain, IBlock } from "./reducer"
 
 export enum ActionType {
-    BLOCKCHAIN="BLOCKCHAIN"
+    BLOCKCHAIN="BLOCKCHAIN",
+    BLOCK="BLOCK"
 }
 
 export interface IAction<T> {
@@ -12,6 +13,13 @@ export interface IAction<T> {
 export const blockchainAction = (payload: Blockchain) : IAction<Blockchain> => {
     return {
         type: ActionType.BLOCKCHAIN,
+        payload: payload
+    }
+}
+
+export const blockAction = (payload: IBlock) : IAction<IBlock> => {
+    return {
+        type: ActionType.BLOCK,
         payload: payload
     }
 }

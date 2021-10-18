@@ -2,11 +2,10 @@ import 'animate.css'
 import './block.css'
 import Block, { Direction } from './block'
 import { useEffect } from 'react'
-import { fetchBlockchain } from '../services'
+import { fetchBlockchain, mineBlock } from '../services'
 import { Context } from '../context/context-provider'
-import { blockchainAction } from '../context/actions'
+import { blockAction, blockchainAction, IAction } from '../context/actions'
 import './style.css'
-import Example from './test'
 
 interface IBlockchain extends Context{
 }
@@ -25,29 +24,33 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
         fetchbc()
 
     },[dispatch])
-    return (
-            <div className="container mx-auto">
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-cols-4 gap-6">
-                    {state.blockchain.blocks.map((block, index) => {
-                        if ((Math.floor((index)/4)+1)%2 != 0){
-                            return (
-                                <div key={index} className={`row-start-${Math.floor(index/4)+1} col-end-${index%4 + 1}`}>
-                                    <Block direction={Direction.Forwards} displayArrow={index !== state.blockchain.blocks.length -1} blockData={block}/>
-                                </div>
-                            )
-                        }else{
-                            return (
-                                <div key={index} className={`row-start-${Math.floor(index/4)+1} col-end-${4-(index)%4}`}>
-                                    <Block direction={Direction.Backwards} displayArrow={index !== state.blockchain.blocks.length -1} blockData={block}/>
-                                </div>
-                            )
     
-                        }
-                    })}
-                </div>
-                <Example/>
-                
-            </div>
+    return (
+        <div className="grid grid-cols-1 gap-4">
+            {state.blockchain.blocks.map((block, index) => {
+                return (
+                    <Block direction={Direction.Forwards} last={index === state.blockchain.blocks.length - 1} blockData={block}/>
+                )
+            })}
+            <Button dispatch={dispatch}/>
+        </div>
+    )
+}
+
+const Button : any = ({dispatch}:{dispatch:React.Dispatch<IAction<any>>}) => {
+    const mine = async () => {
+        try{
+            const block = await mineBlock()
+            dispatch(blockAction(block))
+            
+        }catch(e){
+            console.log(e)
+        }
+    }
+    return (
+        <div onClick={mine} className={`h-24 w-36 flex justify-center items-center border-2 transform transition duration-500 hover:scale-105 cursor-pointer bg-transparent hover:bg-fadedBlue text-fadedBlue font-semibold hover:text-white py-2 px-4 border border-fadedBlue hover:border-transparent rounded`}>
+            Mine
+        </div> 
     )
 }
 
