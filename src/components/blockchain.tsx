@@ -1,11 +1,12 @@
 import 'animate.css'
 import './block.css'
 import Block, { Direction } from './block'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { fetchBlockchain, mineBlock } from '../services'
 import { Context } from '../context/context-provider'
 import { blockAction, blockchainAction, IAction } from '../context/actions'
 import './style.css'
+import React from 'react'
 
 interface IBlockchain extends Context{
 }
@@ -24,15 +25,30 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
         fetchbc()
 
     },[dispatch])
+    const messagesEndRef = useRef<any>(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+    
+    useEffect(scrollToBottom, [state.blockchain]);
     
     return (
         <div className="grid grid-cols-1 gap-4">
             {state.blockchain.blocks.map((block, index) => {
                 return (
-                    <Block direction={Direction.Forwards} last={index === state.blockchain.blocks.length - 1} blockData={block}/>
+                    <Block 
+                    key={index} 
+                    direction={Direction.Forwards} 
+                    last={index === state.blockchain.blocks.length - 1} 
+                    blockData={block}
+                />
+                       
                 )
             })}
             <Button dispatch={dispatch}/>
+            <div ref={messagesEndRef}/>
+
         </div>
     )
 }
