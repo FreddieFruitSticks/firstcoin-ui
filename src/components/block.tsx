@@ -21,14 +21,15 @@ const Block = ({blockData, last, direction}: IBlockProps) => {
    const [expand, setExpand] = useState(false)
    
     return (
-      <div className="transform transition duration-500 hover:scale-105 flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className="w-5/12 transform transition duration-500 hover:scale-105 flex flex-col items-center">
         <AnimateHeight
           duration={ 500 }
           height={ expand ? 'auto': 150}
-          className="w-5/12 rounded-lg border-green border-4 animate__animated animate__rubberBand"
+          className="w-full rounded-lg animate__animated animate__rubberBand"
         >
         <div onClick={() => setExpand(!expand)} className=" cursor-pointer">
-            <div className={`rounded text-yellowGreen bg-limeGreen tran block px-2 overflow-hidden`}>
+            <div className={`rounded text-trendyGrey bg-trendyGreen tran block px-2 overflow-hidden`}>
               <div>
                 index: {blockData.index}
               </div>
@@ -55,6 +56,8 @@ const Block = ({blockData, last, direction}: IBlockProps) => {
 
         </div>
         </AnimateHeight>
+        </div>
+        
         {direction == Direction.Forwards &&
           !last && <span className="arrow arrow-down"></span>
         }

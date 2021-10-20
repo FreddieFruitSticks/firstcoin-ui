@@ -17,7 +17,17 @@ module.exports = {
         oliveGreen:"#3D550C",
         limeGreen:"#81B622",
         yellowGreen: "#ECF87F",
-        green:'#59981A'
+        green:'#59981A',
+        oceanLightBlue:'#95D8EB',
+        oceanMiddleBlue:'#4DB4D7',
+        oceanBlue:'#0076BE',
+        oceanGreen:'#48BF91',
+        oceanLightGreen:'#8BD9C7',
+        trendyGrey: '#242E38',
+        trendyYellow: '#EAC43D',
+        trendyBlue: '#2A5C99',
+        trendyTurquoise: '#14C0CC',
+        trendyGreen: '#A6CD4E',
       },
       minHeight: {
         '0': '0',

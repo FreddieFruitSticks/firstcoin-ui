@@ -43,10 +43,8 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
                     direction={Direction.Forwards} 
                     last={index === state.blockchain.blocks.length - 1} 
                     blockData={block}
-                />
-                       
-                )
-            })}
+                />     
+            )})}
             <div ref={messagesEndRef}/>
 
         </div>
@@ -69,7 +67,7 @@ const Button : any = ({dispatch}:{dispatch:React.Dispatch<IAction<any>>}) => {
         }
     }
     return (
-        <div onClick={mine} className={`h-24 w-36 bg-yellowGreen border-4 text-oliveGreen hover:text-green border-oliveGreen hover:border-green flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
+        <div onClick={mine} className={`h-24 w-36 bg-trendyBlue text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
             Mine
         </div> 
     )
