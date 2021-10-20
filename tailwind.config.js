@@ -8,22 +8,16 @@ module.exports = {
       colors: {
         orange: '#ff5614',
         grey: '#595959',
+        yellow:'#EFCE4A',
         background: '#f2f2f2',
         background2: '#D8D8D8',
         background3: '#fffdfb',
-        green:'#6BBE66',
-        yellow:'#EFCE4A',
         red: "#E1341E",
         blue: "#1b3de4",
-        fadedRed: '#f16159',
-        lightFadedRed: '#f47d77',
-        lighterFadedRed: '#FCDDDC',
-        fadedGreen: '#59F161',
-        lightFadedGreen: '#03bb51',
-        lighterFadedGreen: '#DCFCDD',
-        fadedBlue: '#6159F1',
-        lightFadedBlue: '#7D77F4',
-        lighterFadedBlue: '#DDDCFC'
+        oliveGreen:"#3D550C",
+        limeGreen:"#81B622",
+        yellowGreen: "#ECF87F",
+        green:'#59981A'
       },
       minHeight: {
         '0': '0',

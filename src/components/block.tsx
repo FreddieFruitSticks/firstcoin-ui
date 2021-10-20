@@ -25,10 +25,10 @@ const Block = ({blockData, last, direction}: IBlockProps) => {
         <AnimateHeight
           duration={ 500 }
           height={ expand ? 'auto': 150}
-          className="w-5/12 rounded"
+          className="w-5/12 rounded-lg border-green border-4 animate__animated animate__rubberBand"
         >
         <div onClick={() => setExpand(!expand)} className=" cursor-pointer">
-            <div className={`rounded-lg tran  block px-2 overflow-hidden animate__animated animate__rubberBand`}>
+            <div className={`rounded text-yellowGreen bg-limeGreen tran block px-2 overflow-hidden`}>
               <div>
                 index: {blockData.index}
               </div>

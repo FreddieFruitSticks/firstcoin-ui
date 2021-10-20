@@ -6,9 +6,9 @@ import Blockchain from './components/blockchain';
 
 function App({state, dispatch}: Context) {
   return (
-    <div >
+    <div className="bg-background">
       <Header {...{state, dispatch}}/>
-      <div className="pa4">
+      <div>
         <Blockchain {...{state, dispatch}}/>
       </div>
     </div>

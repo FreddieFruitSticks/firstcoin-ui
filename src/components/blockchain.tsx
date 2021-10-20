@@ -34,6 +34,7 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
     useEffect(scrollToBottom, [state.blockchain]);
     
     return (
+        <div className="">
         <div className="grid grid-cols-1 gap-4">
             {state.blockchain.blocks.map((block, index) => {
                 return (
@@ -46,10 +47,14 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
                        
                 )
             })}
-            <Button dispatch={dispatch}/>
             <div ref={messagesEndRef}/>
 
         </div>
+        <div className="pt-10 flex justify-center items-center w-full">
+            <Button dispatch={dispatch}/>
+        </div>
+        </div>
+        
     )
 }
 
@@ -64,7 +69,7 @@ const Button : any = ({dispatch}:{dispatch:React.Dispatch<IAction<any>>}) => {
         }
     }
     return (
-        <div onClick={mine} className={`h-24 w-36 flex justify-center items-center border-2 transform transition duration-500 hover:scale-105 cursor-pointer bg-transparent hover:bg-fadedBlue text-fadedBlue font-semibold hover:text-white py-2 px-4 border border-fadedBlue hover:border-transparent rounded`}>
+        <div onClick={mine} className={`h-24 w-36 bg-yellowGreen border-4 text-oliveGreen hover:text-green border-oliveGreen hover:border-green flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
             Mine
         </div> 
     )
