@@ -2,7 +2,7 @@ import 'animate.css'
 import './block.css'
 import Block, { Direction } from './block'
 import { useEffect, useRef } from 'react'
-import { fetchBlockchain, mineBlock } from '../services'
+import { fetchBlockchain, fetchControlPanel, mineBlock } from '../services'
 import { Context } from '../context/context-provider'
 import { blockAction, blockchainAction, IAction } from '../context/actions'
 import './style.css'
@@ -63,7 +63,7 @@ const Button : any = ({dispatch}:{dispatch:React.Dispatch<IAction<any>>}) => {
         try{
             const block = await mineBlock()
             dispatch(blockAction(block))
-            
+            fetchControlPanel(dispatch)
         }catch(e){
             console.log(e)
         }

@@ -40,6 +40,7 @@ export interface Blockchain{
 export interface InitialState {
     blockchain: Blockchain;
     hostDetails: IHostDetails[];
+    unconfirmedTxPool: ITransaction[];
 }
 
 export interface IHostDetails {
@@ -52,7 +53,8 @@ export const initialState: InitialState = {
     blockchain: {
         blocks: []
     },
-    hostDetails: []
+    hostDetails: [],
+    unconfirmedTxPool: []
 }
 
 
@@ -93,7 +95,16 @@ const reducer : (state: InitialState, action: IAction<any>) => InitialState = (s
                         
             const newState = {
                 ...state,
-                hostDetails: clone,
+                hostDetails: action.payload.hostsDetails,
+            }
+            
+            return newState
+        }
+        
+        case ActionType.UNCONFIRMED_TX_POOL:{                        
+            const newState = {
+                ...state,
+                unconfirmedTxPool: action.payload.pool
             }
             
             return newState

@@ -1,9 +1,11 @@
-import { Blockchain, IBlock, IHostDetails } from "./reducer"
+import { Blockchain, IBlock, IHostDetails, ITransaction } from "./reducer"
 
 export enum ActionType {
     BLOCKCHAIN="BLOCKCHAIN",
     BLOCK="BLOCK",
-    HOST_DETAILS="HOST_DETAILS"
+    HOST_DETAILS="HOST_DETAILS",
+    UNCONFIRMED_TX_POOL="UNCONFIRMED_TX_POOL",
+    CLEAR_HOSTS="CLEAR_HOSTS"
 }
 
 export interface IAction<T> {
@@ -25,9 +27,24 @@ export const blockAction = (payload: IBlock) : IAction<IBlock> => {
     }
 }
 
-export const hostDetailsAction = (payload: IHostDetails) : IAction<IHostDetails> => {
+interface HostsDetails{
+    hostsDetails: IHostDetails[]
+}
+
+export const hostDetailsAction = (payload: HostsDetails) : IAction<HostsDetails> => {
     return {
         type: ActionType.HOST_DETAILS,
+        payload: payload
+    }
+}
+
+interface Pool{
+    pool: ITransaction[]
+}
+
+export const unconfirmedTxPoolAction = (payload: Pool) : IAction<Pool> => {
+    return {
+        type: ActionType.UNCONFIRMED_TX_POOL,
         payload: payload
     }
 }

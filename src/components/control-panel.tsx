@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
-import { hostDetailsAction } from "../context/actions"
+import { hostDetailsAction, unconfirmedTxPoolAction } from "../context/actions"
 import { Context } from "../context/context-provider"
-import { fetchHostDetails, fetchHosts } from "../services"
+import { fetchControlPanel, fetchHostDetails, fetchHosts, fetchUnconfirmedTxPool } from "../services"
+import UnconfirmedTx from "./unconfirmed-tx"
 import Wallet from "./wallet"
 
 interface IControlPanel extends Context{
@@ -9,25 +10,7 @@ interface IControlPanel extends Context{
 
 const ControlPanel = ({state, dispatch}: IControlPanel) => {
     useEffect(() => {
-        async function f(){
-            try{
-                const hosts = await fetchHosts()
-                hosts.forEach(async host => {
-                    let hostDetails = await fetchHostDetails(host)
-                    dispatch(hostDetailsAction({
-                        publicKey: hostDetails.publicKey,
-                        totalAmount: hostDetails.totalAmount,
-                        host: host
-                    }))
-                });
-                
-            }catch(e){
-                console.log(e)
-            }
-        }
-
-        f()
-
+        fetchControlPanel(dispatch)
     },[dispatch])
     
     return (
@@ -38,9 +21,17 @@ const ControlPanel = ({state, dispatch}: IControlPanel) => {
             <div className="flex mb-10 items-center justify-center font-trendyGrey text-xl font-medium">
                 Global Wallets
             </div>
-            {state.hostDetails.map(hostDetail => {
+            {state?.hostDetails?.map((hostDetail, index) => {
                 return (
-                    <Wallet publicKey={hostDetail.publicKey} totalAmount={hostDetail.totalAmount}/>
+                    <Wallet key={index} dispatch={dispatch} host={hostDetail.host} publicKey={hostDetail.publicKey} totalAmount={hostDetail.totalAmount}/>
+                )
+            })}
+            <div className="flex mb-10 items-center justify-center font-trendyGrey text-xl font-medium">
+                Unconfirmed Transaction pool
+            </div>
+            {state?.unconfirmedTxPool?.map((tx, index) => {
+                return (
+                    <UnconfirmedTx key={index} unconfirmedTxData={tx}/>
                 )
             })}
         </div>
