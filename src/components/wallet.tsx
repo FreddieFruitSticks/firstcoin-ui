@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { IAction } from '../context/actions'
+import { IAction, statusMessageAction } from '../context/actions'
 import { payAddress } from '../services'
 import { formatKey } from './transaction'
 import { fetchControlPanel } from "../services"
 
 import './wallet.css'
+import { StatusLevel } from '../context/reducer'
 
 interface IWallet{
     colour?: string;
@@ -22,7 +23,11 @@ const Wallet = ({host, publicKey, totalAmount, dispatch}: IWallet) => {
         try{
             const response = await payAddress(host, to, amount)
             fetchControlPanel(dispatch)
-        }catch(e){
+        }catch(e: any){
+            dispatch(statusMessageAction({
+                level: StatusLevel.ERROR,
+                message: e
+            }))
             console.log(e)
         }
     }
@@ -44,7 +49,6 @@ const Wallet = ({host, publicKey, totalAmount, dispatch}: IWallet) => {
                     <div className="text-white pr-4 whitespace-nowrap flex flex-col justify-center"><div className="">Pay:</div></div>
                     <textarea onChange={(event) => setAmount(parseInt(event.target.value))} className="form-textarea mt-1 mr-2 block w-9/12 border-white overflow-hidden" rows={1} placeholder="Amount"></textarea>
                     <textarea onChange={(event) => setTo(event.target.value)} className="form-textarea mt-1 mr-2 block w-9/12 border-white overflow-hidden" rows={1} placeholder="To"></textarea>
-
                 </div>
                 <div onClick={pay} className={`h-10 w-16 mt-1 bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
                     Pay

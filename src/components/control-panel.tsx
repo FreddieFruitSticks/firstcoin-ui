@@ -1,7 +1,6 @@
-import React, { useEffect } from "react"
-import { hostDetailsAction, unconfirmedTxPoolAction } from "../context/actions"
+import { useEffect } from "react"
 import { Context } from "../context/context-provider"
-import { fetchControlPanel, fetchHostDetails, fetchHosts, fetchUnconfirmedTxPool } from "../services"
+import { fetchControlPanel } from "../services"
 import UnconfirmedTx from "./unconfirmed-tx"
 import Wallet from "./wallet"
 

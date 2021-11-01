@@ -18,13 +18,10 @@ const UnconfirmedTx = ({unconfirmedTxData}: {unconfirmedTxData: ITransaction}) =
     
     return(
         <div className="border border-black w-11/12 h-24 mb-10 bg-white">
-            <div>
-                UTxOAmount: {toAmount+change}
-            </div>
-            <div>
+            <div className="p-2">
                 from: {formatKey(unconfirmedTxData.transactionInputs[0].UTxOID.Address)}  change: {change}
             </div>
-            <div>
+            <div className="p-2">
                 to: {formatKey(to)}  amount: {toAmount}
             </div>
         </div>

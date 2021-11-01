@@ -37,24 +37,40 @@ export interface Blockchain{
     blocks: IBlock[]
 }
 
-export interface InitialState {
-    blockchain: Blockchain;
-    hostDetails: IHostDetails[];
-    unconfirmedTxPool: ITransaction[];
+export enum StatusLevel {
+    ERROR = "ERROR",
+    SUCCESS = "SUCCESS",
+    NOTICE = "NOTICE",
+    BLANK = "BLANK"
+  }
+
+export interface IStatusMessage{
+    message: string;
+    level?: StatusLevel;
 }
 
 export interface IHostDetails {
     publicKey: string;
     totalAmount: number;
     host: string;
-} 
+}
+
+export interface InitialState {
+    blockchain: Blockchain;
+    hostDetails: IHostDetails[];
+    unconfirmedTxPool: ITransaction[];
+    statusMessage: IStatusMessage;
+}
 
 export const initialState: InitialState = {
     blockchain: {
         blocks: []
     },
     hostDetails: [],
-    unconfirmedTxPool: []
+    unconfirmedTxPool: [],
+    statusMessage:{
+        message:""
+    }
 }
 
 
@@ -92,10 +108,29 @@ const reducer : (state: InitialState, action: IAction<any>) => InitialState = (s
         case ActionType.HOST_DETAILS:{
             const clone = JSON.parse(JSON.stringify(state.hostDetails));
             clone.push(action.payload)
-                        
+            
+            const ipAddress = (str : string) => parseInt(str.split(":")[1]) 
+        
+            const sortedHosts = clone.sort((first: IHostDetails, second: IHostDetails) => {
+                if (ipAddress(first.host) < ipAddress(second.host)){
+                    return -1
+                }
+              
+                return 1
+            })
+                
             const newState = {
                 ...state,
-                hostDetails: action.payload.hostsDetails,
+                hostDetails: sortedHosts,
+            }
+            
+            return newState
+        }
+        
+        case ActionType.CLEAR_HOSTS:{                        
+            const newState = {
+                ...state,
+                hostDetails: []
             }
             
             return newState
@@ -108,6 +143,20 @@ const reducer : (state: InitialState, action: IAction<any>) => InitialState = (s
             }
             
             return newState
+        }
+        
+        case ActionType.STATUS_MESSAGE:{     
+            if (action.payload.message !== state.statusMessage.message && action.payload.level !== state.statusMessage.level){
+                const newState = {
+                    ...state,
+                    statusMessage: {...action.payload}
+                }
+                
+                return newState
+            }
+                               
+            
+            return state
         }
         
       default:

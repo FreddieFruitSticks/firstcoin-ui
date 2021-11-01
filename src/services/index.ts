@@ -1,4 +1,4 @@
-import { hostDetailsAction, IAction, unconfirmedTxPoolAction } from '../context/actions';
+import { clearHostDetailsAction, hostDetailsAction, IAction, unconfirmedTxPoolAction } from '../context/actions';
 import {Blockchain, IHostDetails, IBlock, ITransaction} from '../context/reducer'
 
 export const fetchBlockchain : () => Promise<Blockchain> = async () => {
@@ -57,26 +57,28 @@ export const payAddress : (host: string, to: string, amount: number) => Promise<
     method: "POST",
     body: JSON.stringify({address: to, amount: amount})
   });
+  
   if (response.ok){
     return response.json()
   }
-  throw new Error(`pay from host ${host} returns `+response.status)
+  
+  const resp = await response.json()
+  throw new Error(`pay from host ${host} returns ${response.status} ${resp.message}`)
 }
 
 export const fetchControlPanel = async (dispatch: React.Dispatch<IAction<any>>) => {
   try{
-      const hosts = await fetchHosts()
-      let hostsDetails: IHostDetails[] = []
+      dispatch(clearHostDetailsAction({}))
       
-      hosts.forEach(async host => {
+      const hosts = await fetchHosts()    
+      const a = hosts.forEach(async host => {
           let hostDetails = await fetchHostDetails(host)
           hostDetails.host=host
-          hostsDetails.push(hostDetails)
-        });
-        
-      dispatch(hostDetailsAction({
-        hostsDetails: hostsDetails
-      }))
+      
+          dispatch(hostDetailsAction({
+            ...hostDetails
+          }))
+      });
       
       const unconfirmedTxPool = await fetchUnconfirmedTxPool()
       dispatch(unconfirmedTxPoolAction({

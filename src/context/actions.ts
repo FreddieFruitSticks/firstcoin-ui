@@ -1,11 +1,12 @@
-import { Blockchain, IBlock, IHostDetails, ITransaction } from "./reducer"
+import { Blockchain, IBlock, IHostDetails, IStatusMessage, ITransaction } from "./reducer"
 
 export enum ActionType {
     BLOCKCHAIN="BLOCKCHAIN",
     BLOCK="BLOCK",
     HOST_DETAILS="HOST_DETAILS",
     UNCONFIRMED_TX_POOL="UNCONFIRMED_TX_POOL",
-    CLEAR_HOSTS="CLEAR_HOSTS"
+    CLEAR_HOSTS="CLEAR_HOSTS",
+    STATUS_MESSAGE="STATUS_MESSAGE"
 }
 
 export interface IAction<T> {
@@ -27,13 +28,17 @@ export const blockAction = (payload: IBlock) : IAction<IBlock> => {
     }
 }
 
-interface HostsDetails{
-    hostsDetails: IHostDetails[]
-}
 
-export const hostDetailsAction = (payload: HostsDetails) : IAction<HostsDetails> => {
+export const hostDetailsAction = (payload: IHostDetails) : IAction<IHostDetails> => {
     return {
         type: ActionType.HOST_DETAILS,
+        payload: payload
+    }
+}
+
+export const clearHostDetailsAction = (payload: {}) : IAction<{}> => {
+    return {
+        type: ActionType.CLEAR_HOSTS,
         payload: payload
     }
 }
@@ -45,6 +50,13 @@ interface Pool{
 export const unconfirmedTxPoolAction = (payload: Pool) : IAction<Pool> => {
     return {
         type: ActionType.UNCONFIRMED_TX_POOL,
+        payload: payload
+    }
+}
+
+export const statusMessageAction = (payload: IStatusMessage) : IAction<IStatusMessage> => {
+    return {
+        type: ActionType.STATUS_MESSAGE,
         payload: payload
     }
 }

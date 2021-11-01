@@ -1,0 +1,29 @@
+.status-message-ERROR{
+    background-color: rgba(220, 61, 36, 0.6);
+    color: white;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #DC3D24
+}
+.status-message-SUCCESS{
+    background-color: rgba(153, 205, 78, 0.6);
+    color: white;
+    border-radius: 5px;
+    border-width: 2px;
+}
+.status-message-NOTICE{
+    background-color: rgba(203, 140, 29, 0.6);
+    color: white;
+    border-radius: 5px;
+    border-width: 2px;
+}
+.status-message-white{
+    background-color: "#F4F4F9";
+    color: "#F4F4F9";
+    border-radius: 5px;
+    border-width: 2px;
+}
+
+.status-message-margin-top{
+    margin-top: 50px;
+}
