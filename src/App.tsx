@@ -12,7 +12,7 @@ function App({state, dispatch}: Context) {
       <Header {...{state, dispatch}}/>
         <Blockchain {...{state, dispatch}}/>
       </div>
-      <ControlPanel/>
+      <ControlPanel {...{state, dispatch}}/>
     </div>
   );
 }

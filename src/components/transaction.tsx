@@ -80,7 +80,7 @@ const UTxOID = ({uTxOIDData}: {uTxOIDData: IUtxOID}) => {
     )
 }
 
-const formatKey : (key: string) => string = (key: string) => {
+export const formatKey : (key: string) => string = (key: string) => {
     return(
         `${key.substring(0,5)}...${key.substring(52,57)}...${key.substring(key.length - 6,key.length - 1)}`
     )

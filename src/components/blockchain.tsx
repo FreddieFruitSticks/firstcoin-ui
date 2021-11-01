@@ -13,16 +13,18 @@ interface IBlockchain extends Context{
 
 const Blockchain = ({state, dispatch}: IBlockchain) => {
     useEffect(() => {
-        async function fetchbc(){
-            const chain = await fetchBlockchain()
-
-        dispatch(blockchainAction({
-            blocks: chain.blocks
-        }))
+        async function f(){
+            try{
+                const chain = await fetchBlockchain()
+                dispatch(blockchainAction({
+                    blocks: chain.blocks
+                }))
+            }catch(e){
+                console.log(e)
+            }
         }
-        
 
-        fetchbc()
+        f()
 
     },[dispatch])
     const messagesEndRef = useRef<any>(null)

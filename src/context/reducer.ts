@@ -1,4 +1,4 @@
-import { ActionType, IAction } from './actions';
+import { ActionType, hostDetailsAction, IAction } from './actions';
 
 export interface IBlock{
     index: number;
@@ -38,17 +38,25 @@ export interface Blockchain{
 }
 
 export interface InitialState {
-    blockchain: Blockchain
+    blockchain: Blockchain;
+    hostDetails: IHostDetails[];
+}
+
+export interface IHostDetails {
+    publicKey: string;
+    totalAmount: number;
+    host: string;
 } 
 
 export const initialState: InitialState = {
     blockchain: {
         blocks: []
-    }
+    },
+    hostDetails: []
 }
 
 
-const reducer : (a: InitialState, b: IAction<any>) => InitialState = (state, action) => {
+const reducer : (state: InitialState, action: IAction<any>) => InitialState = (state, action) => {
     console.log("-------------state before-----------------")
     console.log(state)
     console.log("----------------action--------------------")
@@ -74,6 +82,18 @@ const reducer : (a: InitialState, b: IAction<any>) => InitialState = (state, act
                     ...state.blockchain,
                     ...action.payload
                 }
+            }
+            
+            return newState
+        }
+        
+        case ActionType.HOST_DETAILS:{
+            const clone = JSON.parse(JSON.stringify(state.hostDetails));
+            clone.push(action.payload)
+                        
+            const newState = {
+                ...state,
+                hostDetails: clone,
             }
             
             return newState
