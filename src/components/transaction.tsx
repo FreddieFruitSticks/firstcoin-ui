@@ -1,20 +1,20 @@
 
 import 'animate.css'
 import './block.css'
-import {ITransaction, ITxInputs, ITxOutputs, IUtxOID} from '../context/reducer'
+import {ITransaction, ITxInputs, ITxOutputs} from '../context/reducer'
 
 const Transaction = ({txData}: {txData: ITransaction}) => {
     return (
         <div className="text-xs">
             <div>
-                id: {txData.id.substring(0,5)}...
+                id: {txData.txid.substring(0,5)}...
             </div> 
             <div>
                 timestamp: {txData.timestamp.toString().substring(0,10)}...
             </div>
             <div>
                 txO: [
-                        {txData.transactionOutputs.map((txO, index) => {
+                        {txData.vout.map((txO, index) => {
                             return (
                                 <div key={index} className="pl2">
                                     <TxOut txOData={txO}/>
@@ -25,7 +25,7 @@ const Transaction = ({txData}: {txData: ITransaction}) => {
             </div>
             <div>
                 txIn: [
-                        {txData.transactionInputs.map((txIn, index) => {
+                        {txData.vin.map((txIn, index) => {
                             return (
                                 <div key={index} className="pl2">
                                     <TxIn txInData={txIn}/>
@@ -42,10 +42,10 @@ const TxOut = ({txOData}: {txOData: ITxOutputs}) => {
     return (
         <div>
             <div>
-                Address: {formatKey(txOData.Address)}
+                scriptPubKey: {formatKey(txOData.scriptPubKey)}
             </div>
             <div>
-                Amount: {txOData.Amount}
+                value: {txOData.value}
             </div>
         </div>
     )
@@ -55,26 +55,13 @@ const TxIn = ({txInData}: {txInData: ITxInputs}) => {
     return (
         <div>
             <div>
-                <UTxOID uTxOIDData={txInData.UTxOID}/>
+                txid: {txInData.txid}
             </div>
             <div>
-                UTxOIndex: {txInData.UTxOIndex}
+                vout: {txInData.vout}
             </div>
             <div>
-                Signature: {txInData.Signature.substring(0,5)} ...
-            </div>
-        </div>
-    )
-}
-
-const UTxOID = ({uTxOIDData}: {uTxOIDData: IUtxOID}) => {
-    return (
-        <div>
-            <div>
-                Address: {formatKey(uTxOIDData.Address)}
-            </div>
-            <div>
-                TxID: {uTxOIDData.TxID.substring(0,5)} ...
+                scriptSig: {txInData.scriptSig.substring(0,5)} ...
             </div>
         </div>
     )

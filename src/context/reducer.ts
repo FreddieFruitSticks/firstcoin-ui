@@ -11,25 +11,21 @@ export interface IBlock{
 }
 
 export interface ITxOutputs{
-    Address: string;
-    Amount: number;
-}
-
-export interface IUtxOID{
-    Address: string;
-    TxID: string;
+    scriptPubKey: string;
+    value: number;
 }
 
 export interface ITxInputs{
-    UTxOID: IUtxOID;
-    UTxOIndex: number;
-    Signature: string;
+    txid: string;
+    vout: number;
+    scriptSig: string;
 }
 
 export interface ITransaction{
-    id: string;
-    transactionInputs: ITxInputs[];
-    transactionOutputs: ITxOutputs[];
+    txid: string;
+    locktime: number;
+    vin: ITxInputs[];
+    vout: ITxOutputs[];
     timestamp: number;
 }
 

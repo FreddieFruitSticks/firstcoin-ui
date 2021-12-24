@@ -17,7 +17,9 @@ export const mineBlock : () => Promise<IBlock> = async () => {
   if (response.ok){
     return response.json()
   }
-  throw new Error("fetch blockchain returns "+response.status)
+  const message = await response.json()
+  console.log(message)
+  throw new Error("create blockchain returns "+response.status)
 }
 
 export const fetchHosts : () => Promise<string[]> = async () => {
@@ -72,12 +74,17 @@ export const fetchControlPanel = async (dispatch: React.Dispatch<IAction<any>>) 
       
       const hosts = await fetchHosts()    
       const a = hosts.forEach(async host => {
+        try{
           let hostDetails = await fetchHostDetails(host)
           hostDetails.host=host
       
           dispatch(hostDetailsAction({
             ...hostDetails
           }))
+          
+        }catch(e){
+          console.log(e)
+        }
       });
       
       const unconfirmedTxPool = await fetchUnconfirmedTxPool()
