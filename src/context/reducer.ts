@@ -46,7 +46,7 @@ export interface IStatusMessage{
 }
 
 export interface IHostDetails {
-    publicKey: string;
+    address: string;
     totalAmount: number;
     host: string;
 }

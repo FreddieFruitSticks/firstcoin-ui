@@ -9,13 +9,13 @@ import { StatusLevel } from '../context/reducer'
 
 interface IWallet{
     colour?: string;
-    publicKey: string;
+    address: string;
     totalAmount: number;
     host: string;
     dispatch: React.Dispatch<IAction<any>>;
 }
 
-const Wallet = ({host, publicKey, totalAmount, dispatch}: IWallet) => {
+const Wallet = ({host, address: publicKey, totalAmount, dispatch}: IWallet) => {
     const [to, setTo] = useState("")
     const [amount, setAmount] = useState(0)
     const copy = () => {navigator.clipboard.writeText(publicKey)}
