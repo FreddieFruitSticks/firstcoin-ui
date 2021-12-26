@@ -15,10 +15,10 @@ interface IWallet{
     dispatch: React.Dispatch<IAction<any>>;
 }
 
-const Wallet = ({host, address: publicKey, totalAmount, dispatch}: IWallet) => {
+const Wallet = ({host, address, totalAmount, dispatch}: IWallet) => {
     const [to, setTo] = useState("")
     const [amount, setAmount] = useState(0)
-    const copy = () => {navigator.clipboard.writeText(publicKey)}
+    const copy = () => {navigator.clipboard.writeText(address)}
     const pay = async () => {
         try{
             const response = await payAddress(host, to, amount)
@@ -36,7 +36,7 @@ const Wallet = ({host, address: publicKey, totalAmount, dispatch}: IWallet) => {
             <div className="justify-content flex space-x-4 pb-4">
                 <div className="flex items-center">
                     <div>
-                        user {formatKey(publicKey)}
+                        address: {formatKey(atob(address))}
                     </div>
                 </div>
                 <div onClick={copy} className={`h-10 w-16 bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
