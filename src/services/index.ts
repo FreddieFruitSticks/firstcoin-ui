@@ -24,7 +24,8 @@ export const mineBlock : () => Promise<IBlock> = async () => {
 
 export const fetchHosts : () => Promise<string[]> = async () => {
   const response = await fetch(`http://localhost:8080/hosts`,{
-    method: "GET"  
+    method: "POST",
+    body: JSON.stringify({})
   });
   if (response.ok){
     return response.json()
