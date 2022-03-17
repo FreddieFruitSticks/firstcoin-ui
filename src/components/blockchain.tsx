@@ -1,7 +1,7 @@
 import 'animate.css'
 import './block.css'
 import Block, { Direction } from './block'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { fetchBlockchain, fetchControlPanel, mineBlock } from '../services'
 import { Context } from '../context/context-provider'
 import { blockAction, blockchainAction, IAction } from '../context/actions'
@@ -59,18 +59,31 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
 }
 
 const Button : any = ({dispatch}:{dispatch:React.Dispatch<IAction<any>>}) => {
+    const [fetching, setFetching] = useState(false)
     const mine = async () => {
         try{
+            setFetching(true)
             const block = await mineBlock()
             dispatch(blockAction(block))
             fetchControlPanel(dispatch)
         }catch(e){
             console.log(e)
         }
+        setFetching(false)
+
     }
     return (
-        <div onClick={mine} className={`h-24 w-36 bg-trendyBlue text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
-            Mine
+        <div>
+            {fetching ?
+            <div className="flex justify-center">
+                <img className="w-3/6" src="gntl-mining.gif">
+                </img>
+            </div>
+            :
+            <div onClick={mine} className={`h-24 w-36 mb-28 bg-trendyBlue text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
+                Mine
+            </div>
+        }
         </div> 
     )
 }
