@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IAction, statusMessageAction } from '../context/actions'
-import { payAddress } from '../services'
+import { spendCoinRelay } from '../services'
 import { formatKey } from './transaction'
 import { fetchControlPanel } from "../services"
 
@@ -21,7 +21,7 @@ const Wallet = ({host, address, totalAmount, dispatch}: IWallet) => {
     const copy = () => {navigator.clipboard.writeText(address)}
     const pay = async () => {
         try{
-            const response = await payAddress(host, to, amount)
+            const response = await spendCoinRelay(host, to, amount)
             fetchControlPanel(dispatch)
         }catch(e: any){
             dispatch(statusMessageAction({

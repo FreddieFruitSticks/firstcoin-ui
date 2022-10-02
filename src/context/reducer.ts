@@ -48,7 +48,7 @@ export interface IStatusMessage{
 export interface IHostDetails {
     address: string;
     totalAmount: number;
-    host: string;
+    hostname: string;
 }
 
 export interface InitialState {
@@ -105,10 +105,12 @@ const reducer : (state: InitialState, action: IAction<any>) => InitialState = (s
             const clone = JSON.parse(JSON.stringify(state.hostDetails));
             clone.push(action.payload)
             
-            const ipAddress = (str : string) => parseInt(str.split(":")[1]) 
+            const ipAddress = (hostname : string) => {
+                return parseInt(hostname.split(":")[1])
+            }
         
             const sortedHosts = clone.sort((first: IHostDetails, second: IHostDetails) => {
-                if (ipAddress(first.host) < ipAddress(second.host)){
+                if (ipAddress(first.hostname) < ipAddress(second.hostname)){
                     return -1
                 }
               

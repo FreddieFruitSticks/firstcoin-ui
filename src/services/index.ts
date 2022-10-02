@@ -2,7 +2,7 @@ import { clearHostDetailsAction, hostDetailsAction, IAction, unconfirmedTxPoolAc
 import {Blockchain, IHostDetails, IBlock, ITransaction} from '../context/reducer'
 
 export const fetchBlockchain : () => Promise<Blockchain> = async () => {
-    const response = await fetch(`http://localhost:8080/block-chain`);
+    const response = await fetch(`/block-chain`);
     if (response.ok){
       return response.json()
     }
@@ -10,7 +10,7 @@ export const fetchBlockchain : () => Promise<Blockchain> = async () => {
 }
 
 export const mineBlock : () => Promise<IBlock> = async () => {
-  const response = await fetch(`http://localhost:8080/create-block`,{
+  const response = await fetch(`/create-block`,{
     method: "POST",
     body:JSON.stringify({a: 1, b: 'Textual content'})
   });
@@ -22,8 +22,8 @@ export const mineBlock : () => Promise<IBlock> = async () => {
   throw new Error("create blockchain returns "+response.status)
 }
 
-export const fetchHosts : () => Promise<string[]> = async () => {
-  const response = await fetch(`http://localhost:8080/hosts`,{
+export const fetchHosts : () => Promise<IHostDetails[]> = async () => {
+  const response = await fetch(`/hosts`,{
     method: "POST",
     body: JSON.stringify({})
   });
@@ -33,20 +33,10 @@ export const fetchHosts : () => Promise<string[]> = async () => {
   throw new Error("fetch hosts returns "+response.status)
 }
 
-export const fetchHostDetails : (host: string) => Promise<IHostDetails> = async (host) => {
-  const response = await fetch(`http://${host}/host-details`,{
-    method: "GET"
-  });
-  if (response.ok){
-    return response.json()
-  }
-  throw new Error("fetch host details returns "+response.status)
-}
-
 type txPoolObject = { [key: string]: ITransaction };
 
 export const fetchUnconfirmedTxPool : () => Promise<txPoolObject> = async () => {
-  const response = await fetch(`http://localhost:8080/txpool`,{
+  const response = await fetch(`/txpool`,{
     method: "GET"
   });
   if (response.ok){
@@ -55,10 +45,11 @@ export const fetchUnconfirmedTxPool : () => Promise<txPoolObject> = async () => 
   throw new Error("fetch host details returns "+response.status)
 }
 
-export const payAddress : (host: string, to: string, amount: number) => Promise<txPoolObject> = async (host, to, amount) => {
-  const response = await fetch(`http://${host}/spend-coin`,{
+//this sends the request to the main node - which passes the request on to the internal network
+export const spendCoinRelay : (host: string, to: string, amount: number) => Promise<txPoolObject> = async (host, to, amount) => {
+  const response = await fetch(`/spend-coin-relay`,{
     method: "POST",
-    body: JSON.stringify({address: to, amount: amount})
+    body: JSON.stringify({host:host, address: to, amount: amount})
   });
   
   if (response.ok){
@@ -73,14 +64,12 @@ export const fetchControlPanel = async (dispatch: React.Dispatch<IAction<any>>) 
   try{
       dispatch(clearHostDetailsAction({}))
       
-      const hosts = await fetchHosts()    
-      const a = hosts.forEach(async host => {
+      const hostDetails = await fetchHosts()    
+      const a = hostDetails.forEach(async detail => {
         try{
-          let hostDetails = await fetchHostDetails(host)
-          hostDetails.host=host
       
           dispatch(hostDetailsAction({
-            ...hostDetails
+            ...detail
           }))
           
         }catch(e){

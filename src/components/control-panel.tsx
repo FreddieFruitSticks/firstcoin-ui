@@ -22,7 +22,7 @@ const ControlPanel = ({state, dispatch}: IControlPanel) => {
             </div>
             {state?.hostDetails?.map((hostDetail, index) => {
                 return (
-                    <Wallet key={index} dispatch={dispatch} host={hostDetail.host} address={hostDetail.address} totalAmount={hostDetail.totalAmount}/>
+                    <Wallet key={index} dispatch={dispatch} host={hostDetail.hostname} address={hostDetail.address} totalAmount={hostDetail.totalAmount}/>
                 )
             })}
             <div className="flex mb-10 items-center justify-center font-trendyGrey text-xl font-medium">
