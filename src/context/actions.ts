@@ -29,7 +29,7 @@ export const blockAction = (payload: IBlock) : IAction<IBlock> => {
 }
 
 
-export const hostDetailsAction = (payload: IHostDetails) : IAction<IHostDetails> => {
+export const hostDetailsAction = (payload: IHostDetails[]) : IAction<IHostDetails[]> => {
     return {
         type: ActionType.HOST_DETAILS,
         payload: payload

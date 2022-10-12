@@ -1,3 +1,4 @@
+import { format } from 'path';
 import { ActionType, hostDetailsAction, IAction } from './actions';
 
 export interface IBlock{
@@ -102,14 +103,15 @@ const reducer : (state: InitialState, action: IAction<any>) => InitialState = (s
         }
         
         case ActionType.HOST_DETAILS:{
-            const clone = JSON.parse(JSON.stringify(state.hostDetails));
-            clone.push(action.payload)
+            const clone:{[key: number]: IHostDetails} = JSON.parse(JSON.stringify(action.payload));
+            const hostArray: IHostDetails[] = []
+            Object.values(clone).forEach(hostDetails => hostArray.push(hostDetails))
             
             const ipAddress = (hostname : string) => {
                 return parseInt(hostname.split(":")[1])
             }
         
-            const sortedHosts = clone.sort((first: IHostDetails, second: IHostDetails) => {
+            const sortedHosts = hostArray.sort((first: IHostDetails, second: IHostDetails) => {
                 if (ipAddress(first.hostname) < ipAddress(second.hostname)){
                     return -1
                 }

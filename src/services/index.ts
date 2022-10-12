@@ -1,8 +1,10 @@
 import { clearHostDetailsAction, hostDetailsAction, IAction, unconfirmedTxPoolAction } from '../context/actions';
 import {Blockchain, IHostDetails, IBlock, ITransaction} from '../context/reducer'
 
+var HOST_NAME = process.env.REACT_APP_HOST_NAME ? process.env.REACT_APP_HOST_NAME : ""
+
 export const fetchBlockchain : () => Promise<Blockchain> = async () => {
-    const response = await fetch(`/block-chain`);
+    const response = await fetch(`${HOST_NAME}/block-chain`);
     if (response.ok){
       return response.json()
     }
@@ -10,7 +12,7 @@ export const fetchBlockchain : () => Promise<Blockchain> = async () => {
 }
 
 export const mineBlock : () => Promise<IBlock> = async () => {
-  const response = await fetch(`/create-block`,{
+  const response = await fetch(`${HOST_NAME}/create-block`,{
     method: "POST",
     body:JSON.stringify({a: 1, b: 'Textual content'})
   });
@@ -23,7 +25,7 @@ export const mineBlock : () => Promise<IBlock> = async () => {
 }
 
 export const fetchHosts : () => Promise<IHostDetails[]> = async () => {
-  const response = await fetch(`/hosts`,{
+  const response = await fetch(`${HOST_NAME}/hosts`,{
     method: "POST",
     body: JSON.stringify({})
   });
@@ -36,7 +38,7 @@ export const fetchHosts : () => Promise<IHostDetails[]> = async () => {
 type txPoolObject = { [key: string]: ITransaction };
 
 export const fetchUnconfirmedTxPool : () => Promise<txPoolObject> = async () => {
-  const response = await fetch(`/txpool`,{
+  const response = await fetch(`${HOST_NAME}/txpool`,{
     method: "GET"
   });
   if (response.ok){
@@ -47,7 +49,7 @@ export const fetchUnconfirmedTxPool : () => Promise<txPoolObject> = async () => 
 
 //this sends the request to the main node - which passes the request on to the internal network
 export const spendCoinRelay : (host: string, to: string, amount: number) => Promise<txPoolObject> = async (host, to, amount) => {
-  const response = await fetch(`/spend-coin-relay`,{
+  const response = await fetch(`${HOST_NAME}/spend-coin-relay`,{
     method: "POST",
     body: JSON.stringify({host:host, address: to, amount: amount})
   });
@@ -62,20 +64,14 @@ export const spendCoinRelay : (host: string, to: string, amount: number) => Prom
 
 export const fetchControlPanel = async (dispatch: React.Dispatch<IAction<any>>) => {
   try{
-      dispatch(clearHostDetailsAction({}))
-      
-      const hostDetails = await fetchHosts()    
-      const a = hostDetails.forEach(async detail => {
-        try{
-      
-          dispatch(hostDetailsAction({
-            ...detail
-          }))
-          
-        }catch(e){
-          console.log(e)
-        }
-      });
+      const hostDetails = await fetchHosts()  
+      try{
+        dispatch(hostDetailsAction({
+          ...hostDetails
+        }))
+      }catch(e){
+        console.log(e)
+      }
       
       const unconfirmedTxPool = await fetchUnconfirmedTxPool()
       dispatch(unconfirmedTxPoolAction({

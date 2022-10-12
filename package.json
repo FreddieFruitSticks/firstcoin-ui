@@ -23,8 +23,7 @@
     "start": "BROWSER=google-chrome craco start",
     "build": "craco build",
     "test": "craco test",
-    "build:styles": "npx tailwindcss build -i ./src/styles/styles.css -o ./src/styles/theme.css",
-    "eject": "react-scripts eject"
+    "build:styles": "npx tailwindcss build -i ./src/styles/styles.css -o ./src/styles/theme.css"
   },
   "eslintConfig": {
     "extends": [
