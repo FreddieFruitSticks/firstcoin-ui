@@ -11,7 +11,8 @@ function App({state, dispatch}: Context) {
     <div className="bg-background">
       <div className="w-8/12">
         <StatusMessage {...{state, dispatch}}/>
-      <Header {...{state, dispatch}}/>
+        <Header {...{state, dispatch}}/>
+
         <Blockchain {...{state, dispatch}}/>
       </div>
       <ControlPanel {...{state, dispatch}}/>

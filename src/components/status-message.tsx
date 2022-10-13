@@ -20,9 +20,10 @@ const StatusMessage = ({state, dispatch}: IStatusMessage) => {
             <div 
                 style={{
                     position: 'fixed',
-                    zIndex: 1000
+                    zIndex: 1000,
+                    height: !state.statusMessage.level ? 0 : 'auto'
                 }} 
-                className={`status-message-${state.statusMessage.level} w-8/12 p-10`}
+                className={`status-message-${state.statusMessage.level} ${state.statusMessage.level && state.statusMessage.level != StatusLevel.BLANK ? "visible" : "invisible"} w-8/12 p-10`}
             >
                 {state?.statusMessage?.message &&
                     `${state?.statusMessage?.message}`

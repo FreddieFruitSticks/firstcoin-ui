@@ -1,8 +1,9 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { Context } from "../context/context-provider"
 import { fetchControlPanel } from "../services"
 import UnconfirmedTx from "./unconfirmed-tx"
 import Wallet from "./wallet"
+import Header from './header'
 
 interface IControlPanel extends Context{
 }
@@ -11,6 +12,16 @@ const ControlPanel = ({state, dispatch}: IControlPanel) => {
     useEffect(() => {
         fetchControlPanel(dispatch)
     },[dispatch])
+
+    const messagesEndRef = useRef<any>(null)
+
+    const scrollToBottom = () => {
+        if (state?.unconfirmedTxPool.length > 0){
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }
+    
+    useEffect(scrollToBottom, [state?.unconfirmedTxPool]);
     
     return (
         <div className="flex flex-col items-center border-4 border-trendyTurquoise rounded-lg fixed right-0 h-screen bottom-0 w-4/12 overflow-y-scroll">
@@ -33,6 +44,7 @@ const ControlPanel = ({state, dispatch}: IControlPanel) => {
                     <UnconfirmedTx key={index} unconfirmedTxData={tx}/>
                 )
             })}
+            <div ref={messagesEndRef}/>
         </div>
     )
 }
