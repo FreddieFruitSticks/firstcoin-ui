@@ -12,8 +12,10 @@ function App({state, dispatch}: Context) {
       <div className="w-8/12">
         <StatusMessage {...{state, dispatch}}/>
         <Header {...{state, dispatch}}/>
+        <div className="pt-28">
 
         <Blockchain {...{state, dispatch}}/>
+        </div>
       </div>
       <ControlPanel {...{state, dispatch}}/>
     </div>
