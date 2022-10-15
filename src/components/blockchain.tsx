@@ -38,6 +38,10 @@ const Blockchain = ({state, dispatch}: IBlockchain) => {
     return (
         <div>
             <div className="grid grid-cols-1 gap-4">
+            <div className='w-full font-bold flex flex-col items-center'>
+                Firstcoin Blockchain
+                <span className="arrow arrow-down"></span>
+            </div>
                 {state.blockchain.blocks.map((block, index) => {
                     return (
                         <Block 
