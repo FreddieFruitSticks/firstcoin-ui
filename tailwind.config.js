@@ -28,6 +28,7 @@ module.exports = {
         trendyBlue: '#2A5C99',
         trendyTurquoise: '#14C0CC',
         trendyGreen: '#A6CD4E',
+        trendyRed:'#C43B5A'
       },
       minHeight: {
         '0': '0',

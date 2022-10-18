@@ -2,9 +2,10 @@ import { clearHostDetailsAction, hostDetailsAction, IAction, unconfirmedTxPoolAc
 import {Blockchain, IHostDetails, IBlock, ITransaction} from '../context/reducer'
 
 var HOST_NAME = process.env.REACT_APP_HOST_NAME ? process.env.REACT_APP_HOST_NAME : ""
+var HOST_PORT = process.env.HOST_PORT ? process.env.HOST_PORT : ""
 
 export const fetchBlockchain : () => Promise<Blockchain> = async () => {
-    const response = await fetch(`${HOST_NAME}/block-chain`);
+    const response = await fetch(`${HOST_NAME}${HOST_PORT ? `:${HOST_PORT}` : ""}/block-chain`);
     if (response.ok){
       return response.json()
     }
@@ -12,7 +13,7 @@ export const fetchBlockchain : () => Promise<Blockchain> = async () => {
 }
 
 export const mineBlock : () => Promise<IBlock> = async () => {
-  const response = await fetch(`${HOST_NAME}/create-block`,{
+  const response = await fetch(`${HOST_NAME}${HOST_PORT ? `:${HOST_PORT}` : ""}/create-block`,{
     method: "POST",
     body:JSON.stringify({a: 1, b: 'Textual content'})
   });
@@ -25,7 +26,7 @@ export const mineBlock : () => Promise<IBlock> = async () => {
 }
 
 export const fetchHosts : () => Promise<IHostDetails[]> = async () => {
-  const response = await fetch(`${HOST_NAME}/hosts`,{
+  const response = await fetch(`${HOST_NAME}${HOST_PORT ? `:${HOST_PORT}` : ""}/hosts`,{
     method: "POST",
     body: JSON.stringify({})
   });
@@ -38,7 +39,7 @@ export const fetchHosts : () => Promise<IHostDetails[]> = async () => {
 type txPoolObject = { [key: string]: ITransaction };
 
 export const fetchUnconfirmedTxPool : () => Promise<txPoolObject> = async () => {
-  const response = await fetch(`${HOST_NAME}/txpool`,{
+  const response = await fetch(`${HOST_NAME}${HOST_PORT ? `:${HOST_PORT}` : ""}/txpool`,{
     method: "GET"
   });
   if (response.ok){
@@ -49,7 +50,7 @@ export const fetchUnconfirmedTxPool : () => Promise<txPoolObject> = async () => 
 
 //this sends the request to the main node - which passes the request on to the internal network
 export const spendCoinRelay : (host: string, to: string, amount: number) => Promise<txPoolObject> = async (host, to, amount) => {
-  const response = await fetch(`${HOST_NAME}/spend-coin-relay`,{
+  const response = await fetch(`${HOST_NAME}${HOST_PORT ? `:${HOST_PORT}` : ""}/spend-coin-relay`,{
     method: "POST",
     body: JSON.stringify({host:host, address: to, amount: amount})
   });

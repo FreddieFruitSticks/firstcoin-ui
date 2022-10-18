@@ -80,7 +80,7 @@ const Button : any = ({dispatch}:{dispatch:React.Dispatch<IAction<any>>}) => {
         <div>
             {fetching ?
             <div className="flex justify-center">
-                <img className="w-3/6" src="gntl-mining.gif">
+                <img className="w-3/6" src="ezgif.gif">
                 </img>
             </div>
             :

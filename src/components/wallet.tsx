@@ -13,12 +13,15 @@ interface IWallet{
     totalAmount: number;
     host: string;
     dispatch: React.Dispatch<IAction<any>>;
+    index: number
 }
 
-const Wallet = ({host, address, totalAmount, dispatch}: IWallet) => {
+const Wallet = ({index, host, address, totalAmount, dispatch}: IWallet) => {
     const [to, setTo] = useState("")
     const [amount, setAmount] = useState(0)
-    const copy = () => {navigator.clipboard.writeText(address)}
+    const copy = () => {
+        navigator.clipboard.writeText(address)
+    }
     const pay = async () => {
         try{
             const response = await spendCoinRelay(host, to, amount)
@@ -35,27 +38,28 @@ const Wallet = ({host, address, totalAmount, dispatch}: IWallet) => {
     }
 
     return (
-        <div className="rounded-md text-white p-4 min-h-100 w-4/5 bg-trendyBlue mb-10">
-            <div className="justify-content flex space-x-4 pb-4">
-                <div className="flex items-center">
-                    <div>
-                        address: {formatKey(Buffer.from(address, 'base64').toString('ascii'))}
-                    </div>
+        <div className={`rounded-md text-white p-4 w-4/5 ${index == 0 ? "bg-trendyRed": "bg-trendyBlue"} mb-10`}>
+            <div className="flex justify-center font-bold pb-4">
+                {index == 0 ? "Miner & Wallet" : "Wallet"}
+            </div>
+            <div className="flex w-full justify-between pb-4 items-center">
+                <div >
+                    address: {formatKey(Buffer.from(address, 'base64').toString('ascii'))}
                 </div>
-                <div onClick={copy} className={`h-10 w-16 bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
+
+                <button onClick={copy} className={`h-10 w-16 ml-2 bg-trendyYellow text-white flex justify-center focus:ring-4 focus:ring-white items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold rounded`}>
                     Copy
-                </div> 
-                
+                </button>
             </div>
             <div className="mb-4 flex">
-                <div className="flex align-center space-between">
+                <div className="flex align-center justify-between">
                     <div className="text-white pr-4 whitespace-nowrap flex flex-col justify-center"><div className="">Pay:</div></div>
                     <textarea value={amount ? amount: ""} onChange={(event) => setAmount(parseInt(event.target.value))} className="form-textarea mt-1 mr-2 block w-9/12 border-white overflow-hidden" rows={1} placeholder="Amount"></textarea>
                     <textarea value={to ? to : ""} onChange={(event) => setTo(event.target.value)} className="form-textarea mt-1 mr-2 block w-9/12 border-white overflow-hidden" rows={1} placeholder="To"></textarea>
                 </div>
-                <div onClick={pay} className={`h-10 w-16 mt-1 bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
+                <button onClick={pay} className={`h-10 w-16 mt-1 focus:ring-4 focus:ring-white bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
                     Pay
-                </div> 
+                </button> 
             </div>
             <div>
                 Balance: {totalAmount}

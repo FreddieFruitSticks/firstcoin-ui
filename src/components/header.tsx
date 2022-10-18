@@ -43,13 +43,14 @@ const HoverElement = ({}) => {
                     This is a demonstration blockchain, and it's very simple to use! In the middle you will see the blockchain. 
                     Click on "Mine" to manually mine a block. 
                 <div className='mt-3'>
-                    On the right you will see the "Control Panel". This is where you can transfer coin between wallets. 
+                    On the right you will see the "Control Panel". This is where you can transfer coins between wallets. 
                     Click "copy" to copy the address you want to pay <b>to</b>. Select an amount you wish to pay, and click "pay". 
-                    Only the first miner (wallet) mines which is rewarded 100 coin + 1 coin per transaction.
+                    Only the first miner (coloured red) mines and is rewarded 100 coin + 1 coin per transaction. 
                 </div>
                 <div className='mt-3'>
-                    In the control panel you will also see the unconfired transaction pool. It will indicate the payer, payee, transaction id used 
-                    to confirm the payment, and the "vout" which is the change awarded to the payer.
+                    In the control panel you will also see the unconfirmed transaction pool. It will indicate the payer, payee, transaction id used 
+                    to confirm the payment, and the "vout" which is the change awarded to the payer. To confirm a transaction
+                    click "Mine" to add it to the blockchain.
                 </div>
                 <div className='mt-3'>
                     Happy mining!
