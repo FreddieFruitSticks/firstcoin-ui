@@ -43,7 +43,7 @@ const Wallet = ({index, host, address, totalAmount, dispatch}: IWallet) => {
                 {index == 0 ? "Miner & Wallet" : "Wallet"}
             </div>
             <div className="flex w-full justify-between pb-4 items-center">
-                <div >
+                <div>
                     <span className='font-bold'>Address</span>: {formatKey(Buffer.from(address, 'base64').toString('ascii'))}
                 </div>
 
@@ -53,7 +53,7 @@ const Wallet = ({index, host, address, totalAmount, dispatch}: IWallet) => {
             </div>
             <div className="mb-4">
                 <div className="grid xl:grid-cols-1 grid-cols-3 gap-4">
-                    <textarea value={amount ? amount: ""} onChange={(event) => setAmount(parseInt(event.target.value))} className="form-textarea whitespace-nowrap border-white overflow-hidden" rows={1} placeholder="Amount"></textarea>
+                    <textarea value={amount ? amount: ""} onChange={(event) => setAmount(parseInt(event.target.value))} className="form-textarea block text-black border-white overflow-hidden" rows={1} placeholder="Amount"></textarea>
                     <textarea value={to ? to : ""} onChange={(event) => setTo(event.target.value)} className="form-textarea block border-white overflow-hidden whitespace-nowrap" rows={1} placeholder="Recipient"></textarea>
                     <button onClick={pay} className={`h-10 focus:ring-4 focus:ring-white bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold rounded`}>
                         Pay
