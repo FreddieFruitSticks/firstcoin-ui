@@ -44,25 +44,24 @@ const Wallet = ({index, host, address, totalAmount, dispatch}: IWallet) => {
             </div>
             <div className="flex w-full justify-between pb-4 items-center">
                 <div >
-                    address: {formatKey(Buffer.from(address, 'base64').toString('ascii'))}
+                    <span className='font-bold'>Address</span>: {formatKey(Buffer.from(address, 'base64').toString('ascii'))}
                 </div>
 
                 <button onClick={copy} className={`h-10 w-16 ml-2 bg-trendyYellow text-white flex justify-center focus:ring-4 focus:ring-white items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold rounded`}>
                     Copy
                 </button>
             </div>
-            <div className="mb-4 flex">
-                <div className="flex align-center justify-between">
-                    <div className="text-white pr-4 whitespace-nowrap flex flex-col justify-center"><div className="">Pay:</div></div>
-                    <textarea value={amount ? amount: ""} onChange={(event) => setAmount(parseInt(event.target.value))} className="form-textarea mt-1 mr-2 block w-9/12 border-white overflow-hidden" rows={1} placeholder="Amount"></textarea>
-                    <textarea value={to ? to : ""} onChange={(event) => setTo(event.target.value)} className="form-textarea mt-1 mr-2 block w-9/12 border-white overflow-hidden" rows={1} placeholder="To"></textarea>
+            <div className="mb-4">
+                <div className="grid xl:grid-cols-1 grid-cols-3 gap-4">
+                    <textarea value={amount ? amount: ""} onChange={(event) => setAmount(parseInt(event.target.value))} className="form-textarea whitespace-nowrap border-white overflow-hidden" rows={1} placeholder="Amount"></textarea>
+                    <textarea value={to ? to : ""} onChange={(event) => setTo(event.target.value)} className="form-textarea block border-white overflow-hidden whitespace-nowrap" rows={1} placeholder="Recipient"></textarea>
+                    <button onClick={pay} className={`h-10 focus:ring-4 focus:ring-white bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold rounded`}>
+                        Pay
+                    </button>     
                 </div>
-                <button onClick={pay} className={`h-10 w-16 mt-1 focus:ring-4 focus:ring-white bg-trendyYellow text-white flex justify-center items-center transform transition duration-500 hover:scale-105 cursor-pointer font-semibold py-2 px-4 rounded`}>
-                    Pay
-                </button> 
             </div>
             <div>
-                Balance: {totalAmount}
+                <span className='font-bold'>Balance</span>: {totalAmount}
             </div>
         </div>
     )

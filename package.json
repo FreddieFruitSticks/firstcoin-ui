@@ -22,7 +22,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "BROWSER=google-chrome craco start",
+    "start": "TAILWIND_MODE=watch BROWSER=google-chrome craco start",
     "build": "craco build",
     "test": "craco test",
     "build:styles": "npx tailwindcss build -i ./src/styles/styles.css -o ./src/styles/theme.css"
